@@ -22,11 +22,11 @@ for i in ["falcon1", "falcon9", "falconheavy"]:
         dag=dag
     )
 
-t2 = BashOperator(
-    task_id="print_data", 
-    bash_command="cat /var/data/year={{ execution_date.year }}/rocket={{ params.rocket }}/data.csv", 
-    params={"rocket": "all"}, # falcon1/falcon9/falconheavy
-    dag=dag
-)
+    t2 = BashOperator(
+        task_id="print_data_"+i, 
+        bash_command="cat /var/data/year={{ execution_date.year }}/rocket={{ params.rocket }}/data.csv", 
+        params={"rocket": "all"}, # falcon1/falcon9/falconheavy
+        dag=dag
+    )
 
-t1 >> t2
+    t1 >> t2
