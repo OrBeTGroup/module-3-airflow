@@ -15,7 +15,7 @@ default_args = {
 }
 
 dag = DAG("spacex", default_args=default_args, schedule_interval="0 0 1 1 *")
-"""
+
 for i in ["all", "falcon1", "falcon9", "falconheavy"]:
     t1 = BashOperator(
         task_id="get_data_"+i, 
@@ -25,9 +25,10 @@ for i in ["all", "falcon1", "falcon9", "falconheavy"]:
 
     t2 = BashOperator(
         task_id="print_data_"+i, 
-        #bash_command="cat /var/data/year={{ execution_date.year }}/rocket={{ params.rocket }}/data.csv", 
+        bash_command="cat /var/data/year={{ execution_date.year }}/rocket={{ params.rocket }}/data.csv", 
         #params={"rocket": "all"}, # falcon1/falcon9/falconheavy
-        bash_command="cat /var/data/year={{ execution_date.year }}/rocket="+i+"/data.csv", 
+        params={"rocket": i}, # falcon1/falcon9/falconheavy
+        #bash_command="cat /var/data/year={{ execution_date.year }}/rocket="+i+"/data.csv", 
         dag=dag
     )
 
@@ -47,3 +48,4 @@ t2 = BashOperator(
 )
 
 t1 >> t2
+"""
