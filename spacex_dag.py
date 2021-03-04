@@ -22,7 +22,7 @@ for i in ["all", "falcon1", "falcon9", "falconheavy"]:
         bash_command="python3 /root/airflow/dags/spacex/load_launches.py -y {{{{ execution_date.year }}}} -o /var/data{}".format(" -r {{ params.rocket }}" if rocket !='all' else ""),
         #bash_command="python3 /root/airflow/dags/spacex/load_launches.py -y {{ execution_date.year }} -o /var/data",
         #bash_command="python3 /root/airflow/dags/spacex/load_launches.py -y {{ execution_date.year }} -o /var/data -r "+ i, 
-        #params={"rocket": i},
+        params={"rocket": i},
         dag=dag
     )
 
