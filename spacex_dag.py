@@ -46,3 +46,4 @@ t2 = BashOperator(
     bash_command="cat /var/data/year={{ execution_date.year }}/rocket="+i+"/data.csv", 
     dag=dag
     )
+ t1 >> t2
